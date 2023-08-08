@@ -1,14 +1,23 @@
 -- CreateTable
 CREATE TABLE "Participant" (
     "id" SERIAL NOT NULL,
-    "email" TEXT,
+    "email" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "kid" BOOLEAN NOT NULL DEFAULT false,
-    "age" INTEGER,
     "priceCode" TEXT NOT NULL,
     "registrationId" INTEGER NOT NULL,
 
     CONSTRAINT "Participant_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "KidParticipant" (
+    "id" SERIAL NOT NULL,
+    "name" TEXT NOT NULL,
+    "age" TEXT NOT NULL,
+    "priceCode" TEXT NOT NULL,
+    "registrationId" INTEGER NOT NULL,
+
+    CONSTRAINT "KidParticipant_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -53,6 +62,9 @@ CREATE UNIQUE INDEX "Registration_secureId_key" ON "Registration"("secureId");
 
 -- AddForeignKey
 ALTER TABLE "Participant" ADD CONSTRAINT "Participant_registrationId_fkey" FOREIGN KEY ("registrationId") REFERENCES "Registration"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "KidParticipant" ADD CONSTRAINT "KidParticipant_registrationId_fkey" FOREIGN KEY ("registrationId") REFERENCES "Registration"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Registration" ADD CONSTRAINT "Registration_eventId_fkey" FOREIGN KEY ("eventId") REFERENCES "Event"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

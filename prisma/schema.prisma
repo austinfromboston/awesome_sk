@@ -12,10 +12,17 @@ datasource db {
 
 model Participant {
   id             Int          @id @default(autoincrement())
-  email          String?
+  email          String
   name           String
-  kid            Boolean      @default(false)
-  age            Int?
+  priceCode      String
+  registration   Registration @relation(fields: [registrationId], references: [id])
+  registrationId Int
+}
+
+model KidParticipant {
+  id             Int          @id @default(autoincrement())
+  name           String
+  age            String
   priceCode      String
   registration   Registration @relation(fields: [registrationId], references: [id])
   registrationId Int
@@ -37,6 +44,7 @@ model Registration {
   event                Event         @relation(fields: [eventId], references: [id])
   eventId              Int
   participants         Participant[]
+  kidParticipants      KidParticipant[]
   ticketCount          Int
   pricePaid            Int
   cabinPrefs           String?

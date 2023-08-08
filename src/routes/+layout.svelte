@@ -9,7 +9,8 @@
 
 <svelte:head>
     <title>Registration</title>
-    <link rel="icon" href="https://fav.farm/🌲" />
+<!--    <link rel="icon" href="https://fav.farm/🌲" />-->
+    <link rel="icon" href="/favicon.ico" />
 </svelte:head>
 
 <div class="container">
