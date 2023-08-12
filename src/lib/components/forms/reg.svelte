@@ -125,14 +125,14 @@
                 <div>
                     <label class="label max-w-md">Name
                         <input type="text" name="name"
-                               class="input"
+                               class="input variant-glass"
                                bind:value={$form.participants[idx].name}
                                data-invalid={$errors.participants?.[idx]?.name}
                         />
                     </label>
                     <label class="label max-w-md mt-2">Email
                         <input type="text" name="email"
-                               class="input"
+                               class="input variant-glass"
                                bind:value={$form.participants[idx].email}
                                data-invalid={$errors.participants?.[idx]?.email}
                         />
@@ -156,14 +156,14 @@
                 <div>
                     <label class="label max-w-md">Name
                         <input type="text" name="name"
-                               class="input"
+                               class="input variant-glass"
                                bind:value={$form.kids[idx].name}
                                data-invalid={$errors.kids?.[idx]?.name}
                         />
                     </label>
                     <label class="label max-w-xs mt-2">Age
                         <input type="text" name="age"
-                               class="input"
+                               class="input variant-glass"
                                bind:value={$form.kids[idx].age}
                                data-invalid={$errors.kids?.[idx]?.age}
                         />
@@ -244,7 +244,10 @@
             <span class="text-red-400">{$errors.awesomeContributions}</span>
         {/if}
         <p>
-            Here is the <a href="https://docs.google.com/document/d/1SqiBXIUD3V-kIq43HkBHqfmuPI6aoTVak4EW1b3xMvY/edit?usp=sharing">Awesome Covid Policy</a>
+            Here is the
+            <a href="https://docs.google.com/document/d/1SqiBXIUD3V-kIq43HkBHqfmuPI6aoTVak4EW1b3xMvY/edit?usp=sharing" target="_blank">
+                Awesome Covid Policy
+            </a>
         </p>
         <label class="label" for="otherComments">
             <span>Anything else you want us to know? Special requests, allergies, grammar faux pas</span>

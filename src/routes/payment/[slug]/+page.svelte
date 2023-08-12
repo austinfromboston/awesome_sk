@@ -81,13 +81,15 @@
                     theme="flat"
             >
                 <PaymentElement />
-                <PaymentRequestButton {paymentRequest} on:paymentmethod="{pay}" />
+                <div class="p-4">
+                    <PaymentRequestButton {paymentRequest} on:paymentmethod="{pay}" />
+                </div>
             </Elements>
 
             {#if error}
                 <p class="text-red-400">{error.message} Please try again.</p>
             {/if}
-            <button class="btn variant-filled mt-4">Pay</button>
+            <button class="btn variant-filled-primary mt-4">Pay</button>
         </form>
     {/if}
 </div>

@@ -35,8 +35,7 @@ export async function POST({ request }) {
         const charge = event.data.object
 
         // TODO: fulfill the order here
-        console.log(`✅ Charge succeeded ${charge.id}`)
-        console.log({charge})
+        console.log(`✅ Charge succeeded ${charge.id}, ${charge.metadata?.regSecureId}`)
         await updateReg(charge.metadata.regSecureId, {chargedAt: new Date(), totalPaid: charge.amount / 100})
     }
 

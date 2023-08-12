@@ -23,7 +23,7 @@ export async function load({ params } : {params:{slug: string}} ) {
             regSecureId: params.slug
         }
     })
-    reg.updateReg(params.slug, {paymentIntentId: paymentIntent.id})
+    await reg.updateReg(params.slug, {paymentIntentId: paymentIntent.id})
 
     // return the clientSecret to the client
     return {

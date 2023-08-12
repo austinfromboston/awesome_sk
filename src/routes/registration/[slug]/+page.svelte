@@ -1,5 +1,5 @@
 <script lang="ts">
-    import format from 'date-fns/format';
+    import format from 'date-fns/format/index.js';
     export let data
 
 </script>
