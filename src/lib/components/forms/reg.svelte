@@ -2,12 +2,25 @@
     import { superForm } from 'sveltekit-superforms/client'
     import type { Validation } from 'sveltekit-superforms/index'
     import type { AnyZodObject } from 'zod'
+    import { onMount } from 'svelte';
 
-    export let data: Validation<AnyZodObject> | string | undefined | null
+    export let regData: Validation<AnyZodObject> | string | undefined | null
     export let baseAdult: AnyZodObject
     export let baseKid: AnyZodObject
+    export let pricelist: {"public": unknown, "secret": unknown}
+    export let registrationEvent
 
-    const { form, errors, constraints, enhance } = superForm(data, {dataType: 'json'})
+    let adultCount: number
+    let adultTotal: number
+    let kidTotal: number
+    let regTotal: number
+
+    const { form, errors, constraints, enhance } = superForm(regData, {dataType: 'json'})
+
+    $: adultCount= $form.participants && $form.participants.length > 0 ?  $form.participants.length + 1 : 1
+    $: adultTotal = adultCount * registrationEvent.prices.public[$form.adultPriceCode]
+    $: kidTotal = $form.kidPaymentCount * registrationEvent.prices.public[$form.kidPriceCode]
+    $: regTotal = adultTotal + kidTotal
 
     function addAdult() {
         form.update(($form) => {
@@ -28,6 +41,7 @@
         form.update(($form) => {
             const existingKids = $form.kids || []
             $form.kids = [...existingKids, {...baseKid}]
+            $form.kidPaymentCount = $form.kids.length
             return $form
         })
     }
@@ -36,9 +50,19 @@
         form.update(($form) => {
             const existingKids = $form.kids || []
             $form.kids = existingKids.slice(0, -1)
+            $form.kidPaymentCount = $form.kids.length
             return $form
         })
     }
+
+    onMount(() => {
+        form.update(($form) => {
+            $form.adultPriceCode = "default"
+            $form.kidPriceCode = "default"
+            $form.kidPaymentCount = $form.kids ? $form.kids.length : 0
+            return $form
+        })
+    })
 
 </script>
 
@@ -55,7 +79,6 @@
                     class:input-error={$errors.purchaserName}
                     data-invalid={$errors.purchaserName}
                     bind:value={$form.purchaserName}
-                    {...$constraints.purchaserName}
             />
         </label>
         {#if $errors.purchaserName}
@@ -238,7 +261,63 @@
             <span class="text-red-400">{$errors.otherComments}</span>
         {/if}
 
-        <button class="btn variant-filled-primary" type="submit">Register</button>
+        <h3>Finally, we need some money</h3>
+        <p>
+            Standard Registration for {registrationEvent.name} is <strong>${registrationEvent.prices.public.default}</strong>.
+            This covers costs for site rental, van rental, supplies... so, if this is workable for you, we sure appreciate it.
+            Awesome is not a profit-taking event and we are doing our best to bring you the awesome at-cost!
+        </p>
+        <label class="label" for="adultPriceCode">
+            <span>What would you like to pay?</span>
+            <select
+                    class="select mt-2 variant-glass"
+                    id="adultPriceCode"
+                    name="adultPriceCode"
+                    class:input-error={$errors.adultPriceCode}
+                    data-invalid={$errors.adultPriceCode}
+                    bind:value={$form.adultPriceCode}
+            >
+                {#each pricelist as [code, amount]}
+                    <option value={code}>${amount}</option>
+                {/each}
+            </select>
+        </label>
+        {#if $form.kids && $form.kids.length > 0}
+            <p>
+            We are charged full price by the venue for all children over 5 so this year we ask that you buy tickets for all children over 5 but feel free to use the sliding scale if money is an issue.
+            </p>
+            <label class="label" for="kidPriceCode">
+                <span>Kid Price</span>
+                <select
+                        class="select mt-2 variant-glass"
+                        id="kidPriceCode"
+                        name="kidPriceCode"
+                        class:input-error={$errors.kidPriceCode}
+                        data-invalid={$errors.kidPriceCode}
+                        bind:value={$form.kidPriceCode}
+                >
+                    {#each pricelist as [code, amount]}
+                        <option value={code}>${amount}</option>
+                    {/each}
+                </select>
+            </label>
+
+            <label class="label" for="kidPaymentCount">
+                <span>How many children's tickets are you buying?</span>
+                <input type="number"
+                       name="kidPaymentCount"
+                       id="kidPaymentCount"
+                       min="0"
+                       max="8"
+                       class="input variant-glass"
+                       bind:value={$form.kidPaymentCount}
+                />
+            </label>
+        {/if}
+
+        <h4>Registration Total ${regTotal}</h4>
+
+        <button class="btn variant-filled-primary" type="submit">Register and Pay</button>
     </form>
 </div>
 

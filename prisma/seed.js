@@ -14,6 +14,20 @@ async function main() {
             startDate: "2023-09-13T14:00:00-07:00",
             endDate: "2023-09-17T12:00:00-07:00",
             maxAttendance: 150,
+            prices: {
+                secret: {
+                    cashmoney: 0,
+                    specialgueststar: 0,
+                },
+                "public": {
+                    "test": 5,
+                    "discount3": 30,
+                    "discount2": 80,
+                    "discount1": 120,
+                    "default": 150,
+                    "supporter1": 200,
+                }
+            },
             testid: "awesome_2023"
         }
     })

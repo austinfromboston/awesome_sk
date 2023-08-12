@@ -7,7 +7,7 @@ export const pptSchema = z.object({
 
 export const kidSchema = z.object({
     name: z.string().nonempty({message: 'Missing name'}),
-    age: z.string()
+    age: z.string().nonempty({})
 })
 export const regSchema = z.object({
     purchaserName: z.string().nonempty({message: 'Missing name'}),
@@ -18,5 +18,9 @@ export const regSchema = z.object({
     otherComments: z.string().optional(),
     cabinPrefs: z.string().optional(),
     participants: pptSchema.array().optional(),
-    kids: kidSchema.array().optional()
+    kids: kidSchema.array().optional(),
+    adultPriceCode: z.string(),
+    kidPriceCode: z.string().optional(),
+    kidPaymentCount: z.number().max(8).optional()
+
 })

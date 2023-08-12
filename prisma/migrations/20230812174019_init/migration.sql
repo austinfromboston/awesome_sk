@@ -28,6 +28,7 @@ CREATE TABLE "Event" (
     "startDate" TIMESTAMP(3) NOT NULL,
     "endDate" TIMESTAMP(3) NOT NULL,
     "maxAttendance" INTEGER NOT NULL,
+    "prices" JSONB NOT NULL,
     "testid" TEXT NOT NULL,
 
     CONSTRAINT "Event_pkey" PRIMARY KEY ("id")
@@ -37,19 +38,21 @@ CREATE TABLE "Event" (
 CREATE TABLE "Registration" (
     "id" SERIAL NOT NULL,
     "eventId" INTEGER NOT NULL,
-    "ticketCount" INTEGER NOT NULL,
-    "pricePaid" INTEGER NOT NULL,
+    "kidPaymentCount" INTEGER NOT NULL,
+    "totalDue" INTEGER NOT NULL,
+    "totalPaid" INTEGER,
     "cabinPrefs" TEXT,
     "awesomeContributions" TEXT NOT NULL,
     "otherComments" TEXT,
     "stripeToken" TEXT,
-    "chargedAt" TIMESTAMP(3) NOT NULL,
+    "chargedAt" TIMESTAMP(3),
     "secureId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL,
     "arrivalTime" TEXT NOT NULL,
     "purchaserName" TEXT NOT NULL,
     "purchaserEmail" TEXT NOT NULL,
     "purchaserPhone" TEXT NOT NULL,
+    "paymentIntentId" TEXT,
 
     CONSTRAINT "Registration_pkey" PRIMARY KEY ("id")
 );

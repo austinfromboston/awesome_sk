@@ -9,6 +9,7 @@ export async function getEvent(id: number) {
             registrationStartDate: true,
             startDate: true,
             endDate: true,
+            prices: true
         },
     })
 

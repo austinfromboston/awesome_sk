@@ -36,6 +36,7 @@ model Event {
   endDate               DateTime
   maxAttendance         Int
   registrations         Registration[]
+  prices                Json
   testid                String        @unique
 }
 
@@ -45,17 +46,19 @@ model Registration {
   eventId              Int
   participants         Participant[]
   kidParticipants      KidParticipant[]
-  ticketCount          Int
-  pricePaid            Int
+  kidPaymentCount      Int
+  totalDue             Int
+  totalPaid            Int?
   cabinPrefs           String?
   awesomeContributions String
   otherComments        String?
   stripeToken          String?
-  chargedAt            DateTime
+  chargedAt            DateTime?
   secureId             String       @unique
   createdAt            DateTime
   arrivalTime          String
   purchaserName        String
   purchaserEmail       String
   purchaserPhone       String
+  paymentIntentId      String?
 }

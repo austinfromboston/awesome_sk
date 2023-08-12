@@ -33,9 +33,11 @@
 		"postcss-load-config": "^4.0.1",
 		"prettier": "^2.8.0",
 		"prettier-plugin-svelte": "^2.8.1",
-		"prisma": "^5.0.0",
+		"prisma": "^5.1.1",
+		"stripe": "^12.17.0",
 		"svelte": "^3.54.0",
 		"svelte-check": "^2.9.2",
+		"svelte-stripe": "^0.0.22",
 		"sveltekit-superforms": "^0.5.23",
 		"tailwindcss": "^3.2.7",
 		"tslib": "^2.4.1",
@@ -46,6 +48,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@prisma/client": "^5.0.0"
+		"@prisma/client": "^5.1.1",
+		"date-fns": "^2.30.0"
 	}
 }
