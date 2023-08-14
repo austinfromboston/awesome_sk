@@ -4,7 +4,7 @@
     export let data
 </script>
 
-<div class="container mt-32">
+<div class="container mt-4">
     <h1 class="capitalize">Register for {data.registrationEvent.name}</h1>
     <Form
         regData={data.form}

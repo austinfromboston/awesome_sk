@@ -9,10 +9,7 @@ import { getEvent } from "$lib/services/events"
 export const load = async (event) => {
     const eventId = Number(process.env.CURRENT_EVENT_ID)
     const registrationEvent = await getEvent(eventId);
-    const form = await superValidate({
-        purchaserName: "Talia",
-        arrivalTime: "Thursday",
-        adultPriceCode: "default"}, regSchema)
+    const form = await superValidate(event, regSchema)
     const baseAdult = await superValidate(event, pptSchema)
     const baseKid = await superValidate(event, kidSchema)
     // form.data.arrivalTime = "Wednesday"

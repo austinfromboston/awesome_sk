@@ -70,28 +70,30 @@
 
 </script>
 
-<div class="card mt-8 p-8">
-    <h3 class="mb-2">Please Pay ${data.total/100} to Complete Registration</h3>
-    {#if stripe}
-        <form on:submit|preventDefault="{submit}">
-            <Elements
-                    {stripe}
-                    clientSecret={data.clientSecret}
-                    bind:elements
-                    theme="flat"
-            >
-                <PaymentElement />
-                <div class="p-4">
-                    <PaymentRequestButton {paymentRequest} on:paymentmethod="{pay}" />
-                </div>
-            </Elements>
+<div class="container mt-4">
+    <div class="card mt-8 p-8">
+        <h3 class="mb-2">Please Pay ${data.total/100} to Complete Registration</h3>
+        {#if stripe}
+            <form on:submit|preventDefault="{submit}">
+                <Elements
+                        {stripe}
+                        clientSecret={data.clientSecret}
+                        bind:elements
+                        theme="flat"
+                >
+                    <PaymentElement />
+                    <div class="p-4">
+                        <PaymentRequestButton {paymentRequest} on:paymentmethod="{pay}" />
+                    </div>
+                </Elements>
 
-            {#if error}
-                <p class="text-red-400">{error.message} Please try again.</p>
-            {/if}
-            <button class="btn variant-filled-primary mt-4">Pay</button>
-        </form>
-    {/if}
+                {#if error}
+                    <p class="text-red-400">{error.message} Please try again.</p>
+                {/if}
+                <button class="btn variant-filled-primary mt-4" disabled={processing}>Pay</button>
+            </form>
+        {/if}
+    </div>
 </div>
 
 <style>

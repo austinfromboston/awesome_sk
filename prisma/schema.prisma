@@ -52,7 +52,6 @@ model Registration {
   cabinPrefs           String?
   awesomeContributions String
   otherComments        String?
-  stripeToken          String?
   chargedAt            DateTime?
   secureId             String       @unique
   createdAt            DateTime

@@ -11,3 +11,5 @@ vite.config.ts.timestamp-*
 .tool-versions
 .local
 .idea
+# Sentry Auth Token
+.sentryclirc

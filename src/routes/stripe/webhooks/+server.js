@@ -2,6 +2,7 @@ import Stripe from 'stripe'
 import { error, json } from '@sveltejs/kit'
 import { env } from '$env/dynamic/private'
 import { updateReg, getReg } from '$lib/services/registrations'
+import { sendRegNotification } from "$lib/emails/notifier";
 
 // init api client
 const stripe = new Stripe(env.SECRET_STRIPE_KEY)
@@ -37,6 +38,8 @@ export async function POST({ request }) {
         // TODO: fulfill the order here
         console.log(`✅ Charge succeeded ${charge.id}, ${charge.metadata?.regSecureId}`)
         await updateReg(charge.metadata.regSecureId, {chargedAt: new Date(), totalPaid: charge.amount / 100})
+        const reg = await getReg(charge.metadata.regSecureId)
+        await sendRegNotification(reg).then(() => console.log("Confirmation email sent") )
     }
 
     // return a 200 with an empty JSON response

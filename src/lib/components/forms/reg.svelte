@@ -14,6 +14,8 @@
     let adultTotal: number
     let kidTotal: number
     let regTotal: number
+    let adultAddText: string = "Add"
+    let kidAddText: string = "Add"
 
     const { form, errors, constraints, enhance } = superForm(regData, {dataType: 'json'})
 
@@ -21,6 +23,8 @@
     $: adultTotal = adultCount * registrationEvent.prices.public[$form.adultPriceCode]
     $: kidTotal = $form.kidPaymentCount * registrationEvent.prices.public[$form.kidPriceCode]
     $: regTotal = adultTotal + kidTotal
+    $: adultAddText = adultCount > 1 ? "Add Another" : "Add"
+    $: kidAddText = $form.kids?.length > 0 ? "Add Another" : "Add"
 
     function addAdult() {
         form.update(($form) => {
@@ -146,7 +150,7 @@
                 <span class="text-red-400">Please fill in names and emails for all attendees</span>
             {/if}
         {/if}
-        <button type="button" class="btn variant-soft" on:click={addAdult}>Add Adult</button>
+        <button type="button" class="btn variant-soft" on:click={addAdult}>{adultAddText} Adult</button>
         {#if $form.participants && $form.participants.length > 0}
             <button type="button" class="btn variant-soft" on:click={removeAdult}>Remove Adult</button>
         {/if}
@@ -178,7 +182,7 @@
                 <br />
             {/if}
         {/if}
-        <button type="button" class="btn variant-soft" on:click={addKid}>Add Kid</button>
+        <button type="button" class="btn variant-soft" on:click={addKid}>{kidAddText} Kid</button>
         {#if $form.kids && $form.kids.length > 0}
             <button type="button" class="btn variant-soft" on:click={removeKid}>Remove Kid</button>
         {/if}
@@ -215,11 +219,11 @@
             We often do not have enough cabins for every individual to have their own.
         </p>
         <label class="label" for="cabinPrefs">
-            <span>Housing requests</span>
+            <strong>Housing requests -- include cabin # and people you'd be willing to sleep near</strong>
             <textarea
-                    id="cabinPrefs"
+                id="cabinPrefs"
                 name="cabinPrefs"
-                    class="textarea variant-glass"
+                class="textarea variant-glass"
                 class:input-error={$errors.cabinPrefs}
                 data-invalid={$errors.cabinPrefs}
                 bind:value={$form.cabinPrefs}
@@ -229,7 +233,10 @@
             <span class="text-red-400">{$errors.cabinPrefs}</span>
         {/if}
         <label class="label" for="awesomeContributions">
-            <span>Will you bring some Awesome? This is an event where we all do awesome stuff, is there some specific awesome you want to bring to the community?</span>
+            <strong>Will you bring some Awesome?</strong>
+            <p>This is an event where we all do awesome stuff, is there some specific awesome you want to bring to the community?</p>
+            <p>If this is your first awesome, focus on bringing a positive attitude, alongside maybe a talent show act or some cool toys to share.</p>
+            <p>For veterans of awesome, we appreciate everything you do to make this event great.  We'd also love a little advance notice of your plans.</p>
             <textarea
                 name="awesomeContributions"
                 id="awesomeContributions"
@@ -247,10 +254,10 @@
             Here is the
             <a href="https://docs.google.com/document/d/1SqiBXIUD3V-kIq43HkBHqfmuPI6aoTVak4EW1b3xMvY/edit?usp=sharing" target="_blank">
                 Awesome Covid Policy
-            </a>
+            </a>, we're asking everyone to test before coming.
         </p>
         <label class="label" for="otherComments">
-            <span>Anything else you want us to know? Special requests, allergies, grammar faux pas</span>
+            <strong>Anything else you want us to know? Special requests, allergies, grammar faux pas</strong>
             <textarea
                 name="otherComments"
                 id="otherComments"
@@ -266,7 +273,7 @@
 
         <h3>Finally, we need some money</h3>
         <p>
-            Standard Registration for {registrationEvent.name} is <strong>${registrationEvent.prices.public.default}</strong>.
+            Standard registration for {registrationEvent.name} is <strong>${registrationEvent.prices.public.default}</strong>.
             This covers costs for site rental, van rental, supplies... so, if this is workable for you, we sure appreciate it.
             Awesome is not a profit-taking event and we are doing our best to bring you the awesome at-cost!
         </p>
