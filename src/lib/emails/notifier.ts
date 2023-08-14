@@ -37,7 +37,7 @@ export async function sendRegNotification(reg) {
             },
             Subject: {
                 Charset: 'UTF-8',
-                Data: `Awesome Registration ${reg.purchaserName}`
+                Data: `Awesome Registration for ${reg.purchaserName}`
             }
         },
         Source: ORGANIZER_EMAIL
