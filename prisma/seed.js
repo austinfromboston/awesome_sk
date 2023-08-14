@@ -20,7 +20,6 @@ async function main() {
                     specialgueststar: 0,
                 },
                 "public": {
-                    "test": 5,
                     "discount3": 30,
                     "discount2": 80,
                     "discount1": 120,
