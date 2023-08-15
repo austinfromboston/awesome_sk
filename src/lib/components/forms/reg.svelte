@@ -288,7 +288,7 @@
                     bind:value={$form.adultPriceCode}
             >
                 {#each pricelist as [code, amount]}
-                    <option value={code}>${amount}</option>
+                    <option value={code}>${amount} / person</option>
                 {/each}
             </select>
         </label>
@@ -307,7 +307,7 @@
                         bind:value={$form.kidPriceCode}
                 >
                     {#each pricelist as [code, amount]}
-                        <option value={code}>${amount}</option>
+                        <option value={code}>${amount} / person</option>
                     {/each}
                 </select>
             </label>
