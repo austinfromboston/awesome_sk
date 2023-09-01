@@ -13,6 +13,13 @@
     <link rel="icon" href="/favicon.ico" />
 </svelte:head>
 
-<div class="container">
+<div class="container mb-12">
     <slot />
 </div>
+<div class="bottom-block"></div>
+
+<style>
+    .bottom-block {
+        min-height: 100px;
+    }
+</style>

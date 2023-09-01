@@ -70,7 +70,7 @@
 
 </script>
 
-<div class="card mt-8 p-8">
+<div class="card mt-8 p-8 mb-12">
     <form method="POST" class="space-y-6" use:enhance>
         <h3>Tell us about yourself</h3>
         <label class="label" for="purchaserName">
