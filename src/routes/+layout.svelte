@@ -18,8 +18,16 @@
 </div>
 <div class="bottom-block"></div>
 
-<style>
+<style lang="scss">
     .bottom-block {
         min-height: 100px;
+    }
+    :global(body) {
+        background: fuchsia;
+        color: white;
+    }
+    .container {
+        border: 3px solid yellow;
+        margin-top: 100px;
     }
 </style>
